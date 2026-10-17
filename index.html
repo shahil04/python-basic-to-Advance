@@ -293,6 +293,17 @@
       text-decoration: none;
     }
     .file-link[hidden], .file-group[hidden] { display: none; }
+    .file-kind {
+      flex: 0 0 auto;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: #f0f3f1;
+      color: var(--muted);
+      font-size: .65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .catalog-status { margin: 16px 0 0; color: var(--muted); font-size: .83rem; }
     .file-link:hover, .file-link:focus-visible { border-color: #a7cdb8; background: #f2faf5; color: var(--green-dark); }
     .reader-dialog {
       width: min(1000px, calc(100% - 28px));
@@ -347,6 +358,32 @@
       color: #24342d;
     }
     .reader-document[hidden], .reader-frame[hidden] { display: none; }
+    .ppt-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: white;
+    }
+    .ppt-controls[hidden], .ppt-stage[hidden] { display: none; }
+    .ppt-stage { min-height: 100%; padding: clamp(12px, 3vw, 28px); }
+    .ppt-slide {
+      position: relative;
+      width: min(100%, 1080px);
+      margin: 0 auto;
+      overflow: hidden;
+      aspect-ratio: var(--ppt-ratio, 16 / 9);
+      background: white;
+      box-shadow: 0 10px 32px rgb(18 35 26 / 16%);
+    }
+    .ppt-element { position: absolute; box-sizing: border-box; overflow: hidden; }
+    .ppt-text { color: #1e2722; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .ppt-paragraph { min-height: 1em; }
+    .ppt-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .ppt-count { min-width: 90px; color: var(--muted); font-size: .82rem; font-weight: 700; text-align: center; }
+    .ppt-loading { padding: 30px; color: var(--muted); text-align: center; }
     .reader-document h1, .reader-document h2, .reader-document h3,
     .reader-document h4, .reader-document h5, .reader-document h6 {
       max-width: none;
@@ -379,6 +416,9 @@
     }
     .reader-document blockquote { margin: 1em 0; padding-left: 16px; border-left: 3px solid #acd1ba; color: var(--muted); }
     .reader-document a { color: var(--green); }
+    .reader-document table { width: 100%; margin: 1em 0; border-collapse: collapse; }
+    .reader-document th, .reader-document td { padding: 8px 10px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .reader-document th { background: #f2f6f3; }
     .notebook-cell { margin: 0 0 18px; }
     .notebook-cell-markdown { padding: 1px 0; }
     .notebook-cell-code { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 10px; }
@@ -422,6 +462,7 @@
       .reader-body { height: 76vh; }
       .notebook-cell-code { grid-template-columns: 34px minmax(0, 1fr); gap: 6px; }
       .cell-prompt { font-size: .64rem; }
+      .ppt-stage { padding: 10px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
@@ -450,7 +491,7 @@
         <a class="button" href="#curriculum">Explore the curriculum <span aria-hidden="true">→</span></a>
         <a class="button secondary" href="5.python%20basic%20to%20Advance/0.Python%20Syllabus.docx">Open the course syllabus</a>
       </div>
-      <p class="hero-note">Read supported course files right here. Notebook code is displayed safely and is never run by this website.</p>
+      <p class="hero-note">Read slides and notebooks in their native layout. Notebook code is displayed safely and is never run by this website.</p>
     </section>
 
     <div class="quick-stats" aria-label="Course overview">
@@ -603,109 +644,16 @@
         <a class="extra" href="5.python%20basic%20to%20Advance/2.module_5_python_beg_to_advance.pptx"><strong>Course presentation</strong><span>Open the course slide deck →</span></a>
         <a class="extra" href="class_practice/numpy.ipynb"><strong>More class practice</strong><span>Try extra notebooks, exercises, and data files →</span></a>
       </div>
-
       <div class="browser-library" aria-labelledby="browser-library-title">
         <h3 id="browser-library-title">Browse course files in your browser</h3>
-        <p>Open Markdown, PDFs, Python source, and Jupyter notebooks without leaving this page. HTML files are shown in a sandboxed preview. Use the file groups to browse the repository.</p>
+        <p>Files are discovered automatically and listed in natural name order, including Module 1, Module 2, Module 10. Open Word documents, slides, notebooks, PDFs, code, and Markdown here.</p>
         <label>
           <span class="visually-hidden" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Search course files</span>
           <input class="search" id="file-search" type="search" placeholder="Search course files…" autocomplete="off">
         </label>
 
-        <details class="file-group">
-          <summary>Markdown and PDF references</summary>
-          <div class="file-list">
-            <a class="file-link" href="README.md">Repository guide · README.md</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/python_project.md">Python project · Markdown</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/devops-gemini-chatbot/README.md">Chatbot project guide · Markdown</a>
-            <a class="file-link" href="Extras/python_cheatsheet_2.pdf">Python cheat sheet · PDF</a>
-            <a class="file-link" href="Extras/25_Awesome_Python_Scripts.pdf">Python scripts collection · PDF</a>
-            <a class="file-link" href="class_practice/7754daab16fb8cf48860699e4ef60e71826596_15735_66cd8d80048f4.pdf">Class reference · PDF</a>
-          </div>
-        </details>
-
-        <details class="file-group">
-          <summary>Python source files</summary>
-          <div class="file-list">
-            <a class="file-link" href="5.python%20basic%20to%20Advance/app.py">Course app.py</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module5_function_add_to_card.py">Functions example</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Untitled-1.py">Python example</a>
-            <a class="file-link" href="class_practice/cal.py">Calculator example</a>
-            <a class="file-link" href="class_practice/cart_management_System.py">Cart management example</a>
-            <a class="file-link" href="class_practice/class_5_7.py">Class practice example</a>
-            <a class="file-link" href="class_practice/demo.py">Practice demo</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/devops-gemini-chatbot/app.py">Chatbot app source</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/devops-gemini-chatbot/src/chatbot.py">Chatbot source</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/devops-gemini-chatbot/src/prompts.py">Chatbot prompts</a>
-          </div>
-        </details>
-
-        <details class="file-group">
-          <summary>Course Jupyter notebooks</summary>
-          <div class="file-list">
-            <a class="file-link" href="5.python%20basic%20to%20Advance/0.practice%20Questions.ipynb">Practice questions</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%203.1%20python%20Data%20Types.ipynb">Module 3.1 · Data types</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%203.2%20class_1_code.ipynb">Module 3.2 · Class code</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%203.2%20Operators%20and%20Expressions.ipynb">Module 3.2 · Operators</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%203.3%20%E2%80%93%20Conditional%20Statements.ipynb">Module 3.3 · Conditionals</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%203.4%20%E2%80%93%20Loops.ipynb">Module 3.4 · Loops</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%204.1%20Advanced%20Data%20Types-%20string.ipynb">Module 4.1 · Strings</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%204.2%20Lists%20in%20Python.ipynb">Module 4.2 · Lists</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%204.3%20Tuples.ipynb">Module 4.3 · Tuples</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%204.5%20Set%20%26%20Frozenset%20in%20Python.ipynb">Module 4.5 · Sets</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%204.6%20Python%20Dictionary.ipynb">Module 4.6 · Dictionaries</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%204.7%20More%20on%20Data%20types.ipynb">Module 4.7 · More data types</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%205.1%20functions.ipynb">Module 5.1 · Functions</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%205.1.1%20Advance%20Function%20map%20,filter,%20reduce,%20zip,%20iterator,%20generator,%20decorators.ipynb">Module 5.1.1 · Advanced functions</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%205.3%20notebook,%20py%20file,%20module,%20package,%20library,%20framework.ipynb">Module 5.3 · Modules and packages</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%206.1%20file_handling.ipynb">Module 6.1 · File handling</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%206.2%20Exception_handling.ipynb">Module 6.2 · Exceptions</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%207%20OOPbank_system.ipynb">Module 7 · OOP bank system</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%207%20oop_CLASS_methods.ipynb">Module 7 · Class methods</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%207%20OOP_code%20copy.ipynb">Module 7 · OOP code copy</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%207%20OOP_code.ipynb">Module 7 · OOP code</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%207.1.2%20exe%20file%20make%20student%20management%20system%20CLI%20and%20tkinter.ipynb">Module 7.1.2 · Student system</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%207.2%20streamlit%20with%20student%20management%20system.ipynb">Module 7.2 · Streamlit</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%208.0%20Regular%20Expressions.ipynb">Module 8.0 · Regular expressions</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Module%208.1%20regx_implementations.ipynb">Module 8.1 · Regex examples</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%208.2%20web_scraping.ipynb">Module 8.2 · Web scraping</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%209.0%20python_sql_conncet_sql_connector_posgres_sqlalchemy_sql_lite.ipynb">Module 9.0 · SQL</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%209.0.1%20mongosh_python.ipynb">Module 9.0.1 · MongoDB</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%209.0.2os_sys_datetime_modules_pip_virtual_env_random.ipynb">Module 9.0.2 · Python utilities</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/module%209.0.4comprehension_iteration_genrator_decorators_time_datetime_mysqlconnector.ipynb">Module 9.0.4 · Advanced tools</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/name_main_python_testing.ipynb">Python names and testing</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/project.ipynb">Course project</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/typecasting_user_input_loops.ipynb">Input and loops practice</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Untitled-1.ipynb">Notebook example 1</a>
-            <a class="file-link" href="5.python%20basic%20to%20Advance/Untitled0.ipynb">Notebook example 2</a>
-          </div>
-        </details>
-
-        <details class="file-group">
-          <summary>Class practice Jupyter notebooks</summary>
-          <div class="file-list">
-            <a class="file-link" href="class_practice/cass.ipynb">Class practice</a>
-            <a class="file-link" href="class_practice/class_11_01_weekday_regex_ws.ipynb">Class 11 · Weekday and regex</a>
-            <a class="file-link" href="class_practice/class_11_1_mat_sea%20copy.ipynb">Class 11 · Matplotlib copy</a>
-            <a class="file-link" href="class_practice/class_11_1_mat_sea.ipynb">Class 11 · Matplotlib</a>
-            <a class="file-link" href="class_practice/class_11_1_stats.ipynb">Class 11 · Statistics</a>
-            <a class="file-link" href="class_practice/class_2_4_exer.ipynb">Classes 2–4 · Exercises</a>
-            <a class="file-link" href="class_practice/class_2_4_web_regx.ipynb">Classes 2–4 · Web and regex</a>
-            <a class="file-link" href="class_practice/class_5_7.ipynb">Classes 5–7</a>
-            <a class="file-link" href="class_practice/class_5_7_dict.ipynb">Classes 5–7 · Dictionaries</a>
-            <a class="file-link" href="class_practice/class_5_7_file_handling.ipynb">Classes 5–7 · File handling</a>
-            <a class="file-link" href="class_practice/class_5_7_funtions.ipynb">Classes 5–7 · Functions</a>
-            <a class="file-link" href="class_practice/numpy.ipynb">NumPy</a>
-            <a class="file-link" href="class_practice/oop_structure.ipynb">OOP structure</a>
-            <a class="file-link" href="class_practice/pandas_class_11_1.ipynb">Pandas</a>
-            <a class="file-link" href="class_practice/ph_scrap_yellow.ipynb">Web scraping practice</a>
-            <a class="file-link" href="class_practice/projectsweb_scrap.ipynb">Web scraping projects</a>
-            <a class="file-link" href="class_practice/python_class_5_7_dt.ipynb">Classes 5–7 · Data types</a>
-            <a class="file-link" href="class_practice/regex.ipynb">Regular expressions</a>
-            <a class="file-link" href="class_practice/requests_bs4.ipynb">Requests and Beautiful Soup</a>
-            <a class="file-link" href="class_practice/weekend_2_4_pandas.ipynb">Weekend classes · Pandas</a>
-          </div>
-        </details>
+        <p class="catalog-status" id="catalog-status" role="status">Loading the repository file catalog…</p>
+        <div id="file-catalog" aria-live="polite"></div>
       </div>
     </section>
   </main>
@@ -724,6 +672,12 @@
     <div class="reader-body" id="reader-body">
       <iframe class="reader-frame" id="reader-frame" title="File preview" hidden></iframe>
       <article class="reader-document" id="reader-document" aria-live="polite"></article>
+      <div class="ppt-controls" id="ppt-controls" hidden>
+        <button class="reader-action" id="ppt-previous" type="button">Previous</button>
+        <span class="ppt-count" id="ppt-count" aria-live="polite"></span>
+        <button class="reader-action" id="ppt-next" type="button">Next</button>
+      </div>
+      <div class="ppt-stage" id="ppt-stage" hidden></div>
     </div>
   </dialog>
 
@@ -736,7 +690,8 @@
     const searchInput = document.querySelector("#lesson-search");
     const fileSearch = document.querySelector("#file-search");
     const lessons = [...document.querySelectorAll(".lesson")];
-    const fileGroups = [...document.querySelectorAll(".file-group")];
+    const fileCatalog = document.querySelector("#file-catalog");
+    const catalogStatus = document.querySelector("#catalog-status");
     const noResults = document.querySelector("#no-results");
     const readerDialog = document.querySelector("#reader-dialog");
     const readerKind = document.querySelector("#reader-kind");
@@ -744,6 +699,15 @@
     const readerFrame = document.querySelector("#reader-frame");
     const readerDocument = document.querySelector("#reader-document");
     const readerOpenOriginal = document.querySelector("#reader-open-original");
+    const pptControls = document.querySelector("#ppt-controls");
+    const pptStage = document.querySelector("#ppt-stage");
+    const pptPrevious = document.querySelector("#ppt-previous");
+    const pptNext = document.querySelector("#ppt-next");
+    const pptCount = document.querySelector("#ppt-count");
+    let catalogItems = [];
+    let docxConverterPromise;
+    let jsZipPromise;
+    let activePresentation;
     const supportedFormats = new Map([
       [".html", "HTML preview"],
       [".htm", "HTML preview"],
@@ -751,7 +715,11 @@
       [".md", "Markdown document"],
       [".markdown", "Markdown document"],
       [".py", "Python source"],
-      [".ipynb", "Jupyter notebook"]
+      [".ipynb", "Jupyter notebook"],
+      [".docx", "Word document"],
+      [".doc", "Legacy Word document"],
+      [".pptx", "PowerPoint presentation"],
+      [".ppt", "Legacy PowerPoint presentation"]
     ]);
 
     searchInput.addEventListener("input", () => {
@@ -768,20 +736,66 @@
       noResults.style.display = visibleCount === 0 ? "block" : "none";
     });
 
-    fileSearch.addEventListener("input", () => {
+    function renderFileCatalog() {
       const query = fileSearch.value.trim().toLowerCase();
-
-      for (const group of fileGroups) {
-        let visibleCount = 0;
-        for (const file of group.querySelectorAll(".file-link")) {
-          const isMatch = file.textContent.toLowerCase().includes(query);
-          file.hidden = !isMatch;
-          if (isMatch) visibleCount += 1;
-        }
-        group.hidden = visibleCount === 0;
-        if (query && visibleCount > 0) group.open = true;
+      const groups = new Map();
+      for (const item of catalogItems) {
+        if (!`${item.name} ${item.folder}`.toLowerCase().includes(query)) continue;
+        const folder = item.folder || "Repository root";
+        if (!groups.has(folder)) groups.set(folder, []);
+        groups.get(folder).push(item);
       }
-    });
+      fileCatalog.replaceChildren();
+
+      for (const [folder, items] of groups) {
+        const group = document.createElement("details");
+        group.className = "file-group";
+        group.open = Boolean(query) || folder === "5.python basic to Advance";
+        const summary = document.createElement("summary");
+        summary.textContent = `${folder} · ${items.length} ${items.length === 1 ? "file" : "files"}`;
+        const list = document.createElement("div");
+        list.className = "file-list";
+
+        for (const item of items) {
+          const link = document.createElement("a");
+          link.className = "file-link";
+          link.href = item.path.split("/").map(encodeURIComponent).join("/");
+          link.dataset.path = item.path;
+          link.append(document.createTextNode(item.name));
+          const kind = document.createElement("span");
+          kind.className = "file-kind";
+          kind.textContent = item.extension.slice(1);
+          kind.setAttribute("aria-hidden", "true");
+          link.append(kind);
+          list.append(link);
+        }
+
+        group.append(summary, list);
+        fileCatalog.append(group);
+      }
+
+      catalogStatus.textContent = groups.size
+        ? `${[...groups.values()].reduce((count, items) => count + items.length, 0)} files, sorted by name and module number.`
+        : query ? "No files match that search." : "No supported course files were found.";
+    }
+
+    fileSearch.addEventListener("input", renderFileCatalog);
+
+    async function loadFileCatalog() {
+      try {
+        const response = await fetch(new URL("catalog.json", document.baseURI), { cache: "no-cache" });
+        if (!response.ok) throw new Error(`Catalog request failed (${response.status}).`);
+        const items = await response.json();
+        if (!Array.isArray(items)) throw new Error("The file catalog is not a list.");
+        catalogItems = items;
+        renderFileCatalog();
+      } catch (error) {
+        catalogStatus.textContent = `Could not load the file catalog: ${error.message} Run "python scripts/build_catalog.py" and serve the site over HTTP or HTTPS.`;
+        catalogStatus.classList.add("reader-message");
+      }
+    }
+
+    loadFileCatalog();
 
     document.querySelector("#reader-close").addEventListener("click", () => readerDialog.close());
     readerDialog.addEventListener("close", () => {
@@ -789,6 +803,21 @@
       readerFrame.hidden = true;
       readerDocument.replaceChildren();
       readerDocument.hidden = false;
+      pptStage.replaceChildren();
+      pptStage.hidden = true;
+      pptControls.hidden = true;
+      activePresentation = null;
+    });
+
+    pptPrevious.addEventListener("click", () => {
+      if (activePresentation && activePresentation.index > 0) {
+        changePresentationSlide(activePresentation.index - 1);
+      }
+    });
+    pptNext.addEventListener("click", () => {
+      if (activePresentation && activePresentation.index < activePresentation.slides.length - 1) {
+        changePresentationSlide(activePresentation.index + 1);
+      }
     });
 
     function addInlineMarkdown(parent, text, baseUrl) {
@@ -997,6 +1026,8 @@
     function showReaderMessage(message, detail) {
       readerFrame.hidden = true;
       readerFrame.removeAttribute("src");
+      pptStage.hidden = true;
+      pptControls.hidden = true;
       readerDocument.hidden = false;
       readerDocument.replaceChildren();
       const box = document.createElement("div");
@@ -1012,6 +1043,332 @@
       readerDocument.append(box);
     }
 
+    function loadDocxConverter() {
+      if (globalThis.mammoth) return Promise.resolve(globalThis.mammoth);
+      if (docxConverterPromise) return docxConverterPromise;
+
+      docxConverterPromise = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/mammoth@1.9.1/mammoth.browser.min.js";
+        script.integrity = "sha384-Dmql2RDFhRnFI5K9k2OlF+n+0KL1nR4scY5Akjy8jw8GEbmChSzpsB6Q4Mv+xF0L";
+        script.crossOrigin = "anonymous";
+        script.onload = () => globalThis.mammoth
+          ? resolve(globalThis.mammoth)
+          : reject(new Error("The DOCX reader library did not initialize."));
+        script.onerror = () => reject(new Error("The DOCX reader library could not be loaded."));
+        document.head.append(script);
+      }).catch(error => {
+        docxConverterPromise = null;
+        throw error;
+      });
+
+      return docxConverterPromise;
+    }
+
+    function loadJsZip() {
+      if (globalThis.JSZip) return Promise.resolve(globalThis.JSZip);
+      if (jsZipPromise) return jsZipPromise;
+
+      jsZipPromise = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js";
+        script.integrity = "sha384-+mbV2IY1Zk/X1p/nWllGySJSUN8uMs+gUAN10Or95UBH0fpj6GfKgPmgC5EXieXG";
+        script.crossOrigin = "anonymous";
+        script.onload = () => globalThis.JSZip
+          ? resolve(globalThis.JSZip)
+          : reject(new Error("The PowerPoint reader library did not initialize."));
+        script.onerror = () => reject(new Error("The PowerPoint reader library could not be loaded."));
+        document.head.append(script);
+      }).catch(error => {
+        jsZipPromise = null;
+        throw error;
+      });
+
+      return jsZipPromise;
+    }
+
+    function parseOfficeXml(source, description) {
+      const xml = new DOMParser().parseFromString(source, "application/xml");
+      if (xml.querySelector("parsererror")) throw new Error(`Could not read ${description}.`);
+      return xml;
+    }
+
+    async function readZipXml(zip, path, description) {
+      const entry = zip.file(path);
+      if (!entry) throw new Error(`The presentation is missing ${description}.`);
+      return parseOfficeXml(await entry.async("text"), description);
+    }
+
+    function zipTargetPath(basePath, target) {
+      return new URL(target, `https://presentation.invalid/${basePath}`).pathname.slice(1);
+    }
+
+    async function readZipRelationships(zip, path) {
+      const entry = zip.file(path);
+      if (!entry) return new Map();
+      const xml = parseOfficeXml(await entry.async("text"), "PowerPoint relationships");
+      return new Map(
+        Array.from(xml.getElementsByTagNameNS("*", "Relationship"), relationship => [
+          relationship.getAttribute("Id"),
+          {
+            target: relationship.getAttribute("Target"),
+            external: relationship.getAttribute("TargetMode") === "External"
+          }
+        ])
+      );
+    }
+
+    async function loadPresentation(buffer) {
+      const JSZip = await loadJsZip();
+      const zip = await JSZip.loadAsync(buffer);
+      const presentationPath = "ppt/presentation.xml";
+      const presentationXml = await readZipXml(zip, presentationPath, "presentation settings");
+      const presentationRelationships = await readZipRelationships(zip, "ppt/_rels/presentation.xml.rels");
+      const relationshipNamespace = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
+      const presentationNamespace = "http://schemas.openxmlformats.org/presentationml/2006/main";
+      const size = presentationXml.getElementsByTagNameNS(presentationNamespace, "sldSz")[0];
+      const width = Number(size?.getAttribute("cx")) || 12192000;
+      const height = Number(size?.getAttribute("cy")) || 6858000;
+      const slideList = Array.from(
+        presentationXml.getElementsByTagNameNS(presentationNamespace, "sldId"),
+        slide => {
+          const relationshipId = slide.getAttributeNS(relationshipNamespace, "id");
+          const relationship = presentationRelationships.get(relationshipId);
+          if (!relationship || relationship.external) return null;
+          return zipTargetPath(presentationPath, relationship.target);
+        }
+      ).filter(Boolean);
+
+      if (!slideList.length) throw new Error("No PowerPoint slides were found.");
+      return { zip, slides: slideList, width, height, index: 0 };
+    }
+
+    function shapeBounds(shape, presentation) {
+      const drawingNamespace = "http://schemas.openxmlformats.org/drawingml/2006/main";
+      const transform = shape.getElementsByTagNameNS(drawingNamespace, "xfrm")[0];
+      const offset = transform?.getElementsByTagNameNS(drawingNamespace, "off")[0];
+      const extent = transform?.getElementsByTagNameNS(drawingNamespace, "ext")[0];
+      if (!offset || !extent) return null;
+
+      const x = Number(offset.getAttribute("x"));
+      const y = Number(offset.getAttribute("y"));
+      const width = Number(extent.getAttribute("cx"));
+      const height = Number(extent.getAttribute("cy"));
+      if (![x, y, width, height].every(Number.isFinite)) return null;
+      return {
+        left: `${x / presentation.width * 100}%`,
+        top: `${y / presentation.height * 100}%`,
+        width: `${width / presentation.width * 100}%`,
+        height: `${height / presentation.height * 100}%`
+      };
+    }
+
+    function renderPowerPointText(shape, presentation, slideElement) {
+      const presentationNamespace = "http://schemas.openxmlformats.org/presentationml/2006/main";
+      const drawingNamespace = "http://schemas.openxmlformats.org/drawingml/2006/main";
+      const bounds = shapeBounds(shape, presentation);
+      const textBody = shape.getElementsByTagNameNS(presentationNamespace, "txBody")[0];
+      if (!bounds || !textBody) return;
+
+      const textShape = document.createElement("div");
+      textShape.className = "ppt-element ppt-text";
+      Object.assign(textShape.style, bounds);
+      const bodyProperties = textBody.getElementsByTagNameNS(drawingNamespace, "bodyPr")[0];
+      if (bodyProperties) {
+        const marginProperties = [
+          ["lIns", "paddingLeft"],
+          ["rIns", "paddingRight"],
+          ["tIns", "paddingTop"],
+          ["bIns", "paddingBottom"]
+        ];
+        for (const [attribute, property] of marginProperties) {
+          const value = Number(bodyProperties.getAttribute(attribute));
+          if (value > 0) {
+            const percentage = property.endsWith("Left") || property.endsWith("Right")
+              ? value / presentation.width * 100
+              : value / presentation.height * 100;
+            textShape.style[property] = `${percentage}%`;
+          }
+        }
+      }
+
+      const paragraphs = Array.from(textBody.getElementsByTagNameNS(drawingNamespace, "p"));
+      for (const paragraph of paragraphs) {
+        const element = document.createElement("div");
+        element.className = "ppt-paragraph";
+        const paragraphProperties = paragraph.getElementsByTagNameNS(drawingNamespace, "pPr")[0];
+        const alignment = paragraphProperties?.getAttribute("algn");
+        if (alignment === "ctr") element.style.textAlign = "center";
+        else if (alignment === "r") element.style.textAlign = "right";
+        else if (alignment === "just") element.style.textAlign = "justify";
+
+        for (const child of paragraph.children) {
+          if (child.localName === "br") {
+            element.append(document.createElement("br"));
+            continue;
+          }
+          if (child.localName !== "r" && child.localName !== "fld") continue;
+          const text = Array.from(child.getElementsByTagNameNS(drawingNamespace, "t"), node => node.textContent).join("");
+          if (!text) continue;
+          const run = document.createElement("span");
+          run.textContent = text;
+          const properties = child.getElementsByTagNameNS(drawingNamespace, "rPr")[0];
+          if (properties?.getAttribute("b") === "1") run.style.fontWeight = "700";
+          if (properties?.getAttribute("i") === "1") run.style.fontStyle = "italic";
+          if (properties?.getAttribute("u") && properties.getAttribute("u") !== "none") run.style.textDecoration = "underline";
+          const fontSize = Number(properties?.getAttribute("sz"));
+          if (fontSize > 0) run.style.fontSize = `${fontSize / 100 * 0.75}pt`;
+          element.append(run);
+        }
+        textShape.append(element);
+      }
+
+      slideElement.append(textShape);
+    }
+
+    async function renderPowerPointPicture(shape, slidePath, relationships, presentation, slideElement) {
+      const drawingNamespace = "http://schemas.openxmlformats.org/drawingml/2006/main";
+      const relationshipNamespace = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
+      const bounds = shapeBounds(shape, presentation);
+      const blip = shape.getElementsByTagNameNS(drawingNamespace, "blip")[0];
+      const relationshipId = blip?.getAttributeNS(relationshipNamespace, "embed");
+      const relationship = relationships.get(relationshipId);
+      if (!bounds || !relationship || relationship.external) return;
+
+      const imagePath = zipTargetPath(slidePath, relationship.target);
+      const image = presentation.zip.file(imagePath);
+      if (!image) return;
+      const extension = imagePath.slice(imagePath.lastIndexOf(".")).toLowerCase();
+      const mimeTypes = new Map([
+        [".png", "image/png"],
+        [".jpg", "image/jpeg"],
+        [".jpeg", "image/jpeg"],
+        [".gif", "image/gif"],
+        [".webp", "image/webp"]
+      ]);
+      const mimeType = mimeTypes.get(extension);
+      if (!mimeType) return;
+
+      const element = document.createElement("div");
+      element.className = "ppt-element";
+      Object.assign(element.style, bounds);
+      const picture = document.createElement("img");
+      picture.className = "ppt-image";
+      picture.alt = "";
+      picture.src = `data:${mimeType};base64,${await image.async("base64")}`;
+      element.append(picture);
+      slideElement.append(element);
+    }
+
+    async function renderPresentationSlide(index) {
+      const presentation = activePresentation;
+      if (!presentation || index < 0 || index >= presentation.slides.length) return;
+      presentation.index = index;
+      const slidePath = presentation.slides[index];
+      const slideXml = await readZipXml(presentation.zip, slidePath, `slide ${index + 1}`);
+      const slideRelationships = await readZipRelationships(
+        presentation.zip,
+        `${slidePath.slice(0, slidePath.lastIndexOf("/") + 1)}_rels/${slidePath.slice(slidePath.lastIndexOf("/") + 1)}.rels`
+      );
+      const presentationNamespace = "http://schemas.openxmlformats.org/presentationml/2006/main";
+      const slideTree = slideXml.getElementsByTagNameNS(presentationNamespace, "spTree")[0];
+      if (!slideTree) throw new Error(`Slide ${index + 1} has no content.`);
+
+      const slideElement = document.createElement("div");
+      slideElement.className = "ppt-slide";
+      slideElement.style.setProperty("--ppt-ratio", `${presentation.width} / ${presentation.height}`);
+      for (const shape of slideTree.children) {
+        if (shape.localName === "sp") {
+          renderPowerPointText(shape, presentation, slideElement);
+        } else if (shape.localName === "pic") {
+          await renderPowerPointPicture(shape, slidePath, slideRelationships, presentation, slideElement);
+        }
+      }
+
+      pptStage.replaceChildren(slideElement);
+      pptCount.textContent = `Slide ${index + 1} of ${presentation.slides.length}`;
+      pptPrevious.disabled = index === 0;
+      pptNext.disabled = index === presentation.slides.length - 1;
+    }
+
+    async function changePresentationSlide(index) {
+      try {
+        await renderPresentationSlide(index);
+      } catch (error) {
+        activePresentation = null;
+        showReaderMessage("Could not display this PowerPoint slide.", error.message);
+      }
+    }
+
+    async function openPresentation(buffer) {
+      activePresentation = await loadPresentation(buffer);
+      readerDocument.hidden = true;
+      pptStage.hidden = false;
+      pptControls.hidden = false;
+      try {
+        await renderPresentationSlide(0);
+      } catch (error) {
+        activePresentation = null;
+        pptStage.hidden = true;
+        pptControls.hidden = true;
+        readerDocument.hidden = false;
+        throw error;
+      }
+    }
+
+    function renderConvertedDocx(html, container, baseUrl) {
+      const parsed = new DOMParser().parseFromString(html, "text/html");
+      const allowedTags = new Set([
+        "A", "BLOCKQUOTE", "BR", "CAPTION", "CODE", "DD", "DEL", "DIV", "DL", "DT",
+        "EM", "H1", "H2", "H3", "H4", "H5", "H6", "HR", "IMG", "LI", "OL", "P",
+        "PRE", "S", "SPAN", "STRONG", "SUB", "SUP", "TABLE", "TBODY", "TD", "TFOOT",
+        "TH", "THEAD", "TR", "U", "UL"
+      ]);
+      const imageSource = /^data:image\/(?:png|jpeg|gif|webp);base64,[a-z\d+/]+=*$/i;
+
+      function copySafeNode(source, target) {
+        if (source.nodeType === Node.TEXT_NODE) {
+          target.append(document.createTextNode(source.textContent));
+          return;
+        }
+        if (source.nodeType !== Node.ELEMENT_NODE) return;
+
+        if (!allowedTags.has(source.tagName)) {
+          for (const child of source.childNodes) copySafeNode(child, target);
+          return;
+        }
+
+        const element = document.createElement(source.tagName.toLowerCase());
+        if (source.tagName === "A") {
+          try {
+            const href = new URL(source.getAttribute("href"), baseUrl);
+            if (["http:", "https:", "mailto:"].includes(href.protocol)) {
+              element.href = href.href;
+              element.target = "_blank";
+              element.rel = "noopener noreferrer";
+            }
+          } catch {
+            // Invalid document links are omitted from the preview.
+          }
+        } else if (source.tagName === "IMG") {
+          const src = source.getAttribute("src") ?? "";
+          if (!imageSource.test(src)) return;
+          element.src = src;
+          element.alt = source.getAttribute("alt") ?? "";
+        } else if (["TD", "TH"].includes(source.tagName)) {
+          for (const attribute of ["colspan", "rowspan"]) {
+            const value = source.getAttribute(attribute);
+            if (value && /^\d{1,2}$/.test(value)) element.setAttribute(attribute, value);
+          }
+        }
+
+        for (const child of source.childNodes) copySafeNode(child, element);
+        target.append(element);
+      }
+
+      for (const child of parsed.body.childNodes) copySafeNode(child, container);
+    }
+
     async function openReader(fileUrl, extension) {
       readerKind.textContent = supportedFormats.get(extension);
       readerTitle.textContent = decodeURIComponent(fileUrl.pathname.split("/").pop() ?? "Course file");
@@ -1020,8 +1377,22 @@
       readerFrame.removeAttribute("src");
       readerDocument.hidden = false;
       readerDocument.replaceChildren();
+      pptStage.replaceChildren();
+      pptStage.hidden = true;
+      pptControls.hidden = true;
+      activePresentation = null;
 
       if (!readerDialog.open) readerDialog.showModal();
+
+      if (extension === ".doc" || extension === ".ppt") {
+        const legacyFormat = extension === ".doc" ? "Word" : "PowerPoint";
+        const modernExtension = extension === ".doc" ? ".docx" : ".pptx";
+        showReaderMessage(
+          `This is an older ${legacyFormat} file (${extension}).`,
+          `Convert it to ${modernExtension} with Microsoft PowerPoint or LibreOffice, then open the converted copy here. You can also use Open original to download the original file.`
+        );
+        return;
+      }
 
       if (extension === ".html" || extension === ".htm" || extension === ".pdf") {
         readerFrame.title = `${readerTitle.textContent} preview`;
@@ -1034,8 +1405,22 @@
       }
 
       try {
+        if (extension === ".pptx") {
+          readerDocument.textContent = "Loading PowerPoint slides…";
+        }
         const response = await fetch(fileUrl.href);
         if (!response.ok) throw new Error(`The file request failed (${response.status}).`);
+        if (extension === ".pptx") {
+          await openPresentation(await response.arrayBuffer());
+          return;
+        }
+        if (extension === ".docx") {
+          const mammoth = await loadDocxConverter();
+          const result = await mammoth.convertToHtml({ arrayBuffer: await response.arrayBuffer() });
+          renderConvertedDocx(result.value, readerDocument, fileUrl);
+          return;
+        }
+
         const content = await response.text();
 
         if (extension === ".py") {
@@ -1050,9 +1435,12 @@
           renderNotebook(JSON.parse(content), readerDocument, fileUrl);
         }
       } catch (error) {
+        const hostingNote = extension === ".docx" || extension === ".pptx"
+          ? ` ${extension.toUpperCase()} preview needs internet access to load its browser reader library; your document stays in this browser.`
+          : " The in-browser reader needs the site to be served over HTTP or HTTPS (for example, through GitHub Pages or a local web server).";
         showReaderMessage(
           "This file could not be displayed.",
-          `${error.message} The in-browser reader needs the site to be served over HTTP or HTTPS (for example, through GitHub Pages or a local web server).`
+          `${error.message}${hostingNote}`
         );
       }
     }

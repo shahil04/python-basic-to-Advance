@@ -4,27 +4,40 @@ A free, self-paced Python tutorial built from this repository's course notes, Ju
 
 ## View the website
 
-Open [`index.html`](./index.html) in a browser, or publish the repository with GitHub Pages:
+Run these commands from the repository root to preview the site locally:
 
-1. Push the repository to GitHub.
-2. Open **Settings → Pages** for the repository.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select the `main` branch and the `/(root)` folder, then save.
-5. When the deployment finishes, open the Pages URL shown in the settings.
+```powershell
+python scripts/build_catalog.py
+python -m http.server 8000
+```
 
-The site is plain HTML, CSS, and JavaScript. It has no build step, package installation, or server-side requirements.
+Then open `http://localhost:8000`. Serving over HTTP is required for the browser to load the generated file catalog and course resources.
+
+### Publish and keep the catalog up to date
+
+1. In the GitHub repository, open **Settings → Pages** and set the source to **GitHub Actions**.
+2. Push changes to the `main` branch.
+3. The included workflow regenerates `catalog.json` from the repository files and deploys the static site.
+
+After you add a file anywhere in the repository and push it to `main`, it appears in the catalog automatically. The catalog includes all non-hidden files; formats the browser cannot preview open as normal downloads. When testing locally, rerun `python scripts/build_catalog.py` after adding files. The website remains static; the Python script only builds its file index.
 
 ## Read files in the browser
 
 Select a lesson or a file in **Browse course files in your browser** to open the reader. The reader supports:
 
 - PDF files, using the browser's built-in PDF viewer
+- DOCX files, converted to readable HTML in your browser
+- Legacy DOC files, with instructions to convert them to DOCX before previewing
+- PPTX presentations, displayed slide by slide in the browser
+- Legacy PPT presentations, with instructions to convert them to PPTX before previewing
 - Markdown files, rendered as readable pages
 - Python files, displayed as source code
 - Jupyter notebooks, displayed as Markdown, code cells, and saved text/image outputs
 - HTML files, displayed in a sandboxed preview
 
-Notebook code is never executed by the site. To run a notebook, download it and open it in Jupyter. The reader fetches course files, so Markdown, Python, and notebook previews require the site to be served over HTTP or HTTPS; opening `index.html` directly with a `file://` URL may prevent those previews from loading. GitHub Pages serves the files correctly. Word documents (`.doc` and `.docx`) remain linked as downloads because browsers do not natively display them.
+DOCX preview uses the Mammoth.js browser library, loaded from jsDelivr when a Word document is opened. PPTX preview uses JSZip to read the presentation in the browser and display text and picture slides with previous/next controls. Complex PowerPoint features such as animations and some charts may not look exactly as they do in PowerPoint. These libraries are version-pinned and integrity-checked. The document is fetched from this site and processed locally in your browser; it is not uploaded to a converter service. An internet connection is needed to load the libraries. Legacy `.doc` and `.ppt` files use older binary formats and must first be converted to `.docx` or `.pptx` (for example, with Microsoft Office or LibreOffice).
+
+The file catalog lists files from every repository folder in natural filename order, so `Module 2` appears before `Module 10`. Jupyter notebooks are rendered as notebook cells (Markdown, code, and saved outputs), not as raw JSON. Notebook code is never executed by the site. To run a notebook, download it and open it in Jupyter. GitHub Pages rebuilds the catalog on each deployment; for local use, run `python scripts/build_catalog.py` whenever files are added.
 
 ## Learning path
 
@@ -47,8 +60,8 @@ Use the search box on the homepage to filter lessons by topic. The **Practice an
 - `class_practice/` — supplementary exercises, notebooks, and sample data
 - `Extras/` — presentation slides, Python scripts, and a cheat sheet
 
-Notebook files (`.ipynb`) can be read in the site, or downloaded and opened in Jupyter Notebook, JupyterLab, or a compatible editor. Lesson documents and presentations can be opened with compatible office software.
+Notebook files (`.ipynb`) can be read in the site, or downloaded and opened in Jupyter Notebook, JupyterLab, or a compatible editor. DOCX lesson files can be read in the site; download them to edit in compatible office software.
 
 ## Contributing
 
-Keep the site static and dependency-free. When adding course materials, update the relevant links in `index.html` and verify that each link points to a tracked file in the repository.
+Keep the site static with no server-side dependencies. Pin browser-only libraries to a specific version and use Subresource Integrity for CDN scripts. Repository files are discovered automatically; update the curated learning-path cards in `index.html` only when you want to add or revise those editorial links.
