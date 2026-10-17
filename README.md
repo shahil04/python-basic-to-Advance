@@ -37,6 +37,8 @@ Select a lesson or a file in **Browse course files in your browser** to open the
 
 DOCX preview uses the Mammoth.js browser library, loaded from jsDelivr when a Word document is opened. PPTX preview uses JSZip to read the presentation in the browser and display text and picture slides with previous/next controls. Complex PowerPoint features such as animations and some charts may not look exactly as they do in PowerPoint. These libraries are version-pinned and integrity-checked. The document is fetched from this site and processed locally in your browser; it is not uploaded to a converter service. An internet connection is needed to load the libraries. Legacy `.doc` and `.ppt` files use older binary formats and must first be converted to `.docx` or `.pptx` (for example, with Microsoft Office or LibreOffice).
 
+Select **Learn** or **Start learning** to use the lesson-reader layout. It has a searchable, collapsible module sidebar and displays DOCX notes and notebooks in the lesson area.
+
 The file catalog lists files from every repository folder in natural filename order, so `Module 2` appears before `Module 10`. Jupyter notebooks are rendered as notebook cells (Markdown, code, and saved outputs), not as raw JSON. Notebook code is never executed by the site. To run a notebook, download it and open it in Jupyter. GitHub Pages rebuilds the catalog on each deployment; for local use, run `python scripts/build_catalog.py` whenever files are added.
 
 ## Learning path

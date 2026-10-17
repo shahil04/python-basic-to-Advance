@@ -3,6 +3,7 @@
 This folder contains a reusable copy of the static course website source:
 
 - `index.html` — responsive course page, file search, and in-browser readers
+- `learn.html` — searchable sidebar lesson reader for modules and notebooks
 - `catalog.json` — generated file listing for this repository
 - `scripts/build_catalog.py` — builds the file catalog from the parent repository
 - `tests/test_build_catalog.py` — tests for natural sorting and catalog generation

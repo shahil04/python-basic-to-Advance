@@ -840,6 +840,12 @@
     "extension": ".html"
   },
   {
+    "path": "doc/learn.html",
+    "name": "learn.html",
+    "folder": "doc",
+    "extension": ".html"
+  },
+  {
     "path": "doc/README.md",
     "name": "README.md",
     "folder": "doc",
@@ -884,6 +890,12 @@
   {
     "path": "index.html",
     "name": "index.html",
+    "folder": "",
+    "extension": ".html"
+  },
+  {
+    "path": "learn.html",
+    "name": "learn.html",
     "folder": "",
     "extension": ".html"
   },
