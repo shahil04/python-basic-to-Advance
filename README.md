@@ -59,6 +59,7 @@ Use the search box on the homepage to filter lessons by topic. The **Practice an
 - `5.python basic to Advance/` — syllabus, lesson documents, notebooks, projects, and examples
 - `class_practice/` — supplementary exercises, notebooks, and sample data
 - `Extras/` — presentation slides, Python scripts, and a cheat sheet
+- `doc/` — a reusable copy of the static website code and its setup guide
 
 Notebook files (`.ipynb`) can be read in the site, or downloaded and opened in Jupyter Notebook, JupyterLab, or a compatible editor. DOCX lesson files can be read in the site; download them to edit in compatible office software.
 

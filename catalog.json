@@ -828,6 +828,42 @@
     "extension": ".txt"
   },
   {
+    "path": "doc/deployment/pages.yml",
+    "name": "pages.yml",
+    "folder": "doc/deployment",
+    "extension": ".yml"
+  },
+  {
+    "path": "doc/index.html",
+    "name": "index.html",
+    "folder": "doc",
+    "extension": ".html"
+  },
+  {
+    "path": "doc/README.md",
+    "name": "README.md",
+    "folder": "doc",
+    "extension": ".md"
+  },
+  {
+    "path": "doc/scripts/build_catalog.py",
+    "name": "build_catalog.py",
+    "folder": "doc/scripts",
+    "extension": ".py"
+  },
+  {
+    "path": "doc/static_website_prompt.md",
+    "name": "static_website_prompt.md",
+    "folder": "doc",
+    "extension": ".md"
+  },
+  {
+    "path": "doc/tests/test_build_catalog.py",
+    "name": "test_build_catalog.py",
+    "folder": "doc/tests",
+    "extension": ".py"
+  },
+  {
     "path": "Extras/2.module_5_python_beg_to_advance.pptx",
     "name": "2.module_5_python_beg_to_advance.pptx",
     "folder": "Extras",
@@ -862,6 +898,12 @@
     "name": "build_catalog.py",
     "folder": "scripts",
     "extension": ".py"
+  },
+  {
+    "path": "static_website_prompt.md",
+    "name": "static_website_prompt.md",
+    "folder": "",
+    "extension": ".md"
   },
   {
     "path": "tests/test_build_catalog.py",
