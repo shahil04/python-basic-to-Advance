@@ -441,6 +441,7 @@
       font-size: .8rem;
     }
     .footer a { color: var(--green); font-weight: 700; text-decoration: none; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
 
     @media (max-width: 700px) {
       .wrap { width: min(100% - 28px, 560px); }
@@ -476,7 +477,7 @@
       <span>Python learning path</span>
     </a>
     <nav class="top-links" aria-label="Main navigation">
-      <a href="learn.html">Learn</a>
+      <a target="_blank" href="https://shahil04.github.io/python-basic-to-Advance/learn.html">Learn</a>
       <a href="#curriculum">Curriculum</a>
       <a href="#practice">Practice</a>
       <a href="README.md">About</a>
@@ -492,6 +493,7 @@
         <a class="button" href="learn.html">Start learning <span aria-hidden="true">→</span></a>
         <a class="button secondary" href="#curriculum">Explore the curriculum</a>
         <a class="button secondary" href="5.python%20basic%20to%20Advance/0.Python%20Syllabus.docx">Open the course syllabus</a>
+        <a class="button secondary" href="https://www.youtube.com/playlist?list=PLbdsuU_MGf0c1rQxpQk9yg5J6yax4C-a3" target="_blank" rel="noopener noreferrer">Watch the YouTube learning playlist</a>
       </div>
       <p class="hero-note">Read slides and notebooks in their native layout. Notebook code is displayed safely and is never run by this website.</p>
     </section>
@@ -685,7 +687,12 @@
 
   <footer class="wrap footer">
     <span>Made for curious learners. Learn at your own pace.</span>
-    <a href="README.md">About this repository</a>
+    <nav class="footer-links" aria-label="More learning and community links">
+      <a href="README.md">About this repository</a>
+      <a href="https://www.youtube.com/channel/UCM1Ge17WU-d2QwIvFVDlNSA" target="_blank" rel="noopener noreferrer">YouTube channel</a>
+      <a href="https://t.me/CsWithShahil" target="_blank" rel="noopener noreferrer">Telegram</a>
+      <a href="https://whatsapp.com/channel/0029VbDM3a0KmCPHFlWrQe1U" target="_blank" rel="noopener noreferrer">WhatsApp channel</a>
+    </nav>
   </footer>
 
   <script>
